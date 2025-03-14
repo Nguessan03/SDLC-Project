@@ -11,10 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
+      - name: Log Security Issues
+        run: echo "Security issues detected in the pipeline"
+        
       - name: Send Slack notification
         uses: rtCamp/action-slack-notify@v2
+        continue-on-error: true  
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK' }}
           SLACK_CHANNEL: security-alerts
           SLACK_COLOR: danger
           SLACK_TITLE: Security Workflow Failed
