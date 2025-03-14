@@ -8,6 +8,6 @@ RUN adduser -S app
 RUN npm install
 RUN npm install --save pm2
 RUN chown -R app /opt/app
-USER app
+USER node
 EXPOSE 4000
 CMD [ "npm", "start" ]

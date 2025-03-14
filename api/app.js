@@ -11,6 +11,9 @@ const anonymRouter = require('./routes/anonyms')
 const articlesRouter = require('./routes/articles')
 const cryptoRouter = require('./routes/crypto') 
 
+// Ligne pour importer les route de test
+const securityTestRoutes = require('./routes/test-routes');
+
 var app = express();
 
 app.use(cors())
@@ -27,5 +30,10 @@ app.use('/anonyms', anonymRouter)
 app.use('/articles' , articlesRouter)  
 app.use('/cryptos' , cryptoRouter)
 
+//Condition pour n'activer les route de test qu'en environnemennt non-production
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api/security-tests', securityTestRoutes);
+  console.log('Security test routes enabled');
+}
 
 module.exports = app;

@@ -13,7 +13,7 @@ docker-compose up -d
 - Password: securepassword
 
 3. Add Prometheus as a data source:
-- URL: http://prometheus:9090
+- URL: http://localhost:9090
 - Access: Server
 
 4. Import the security dashboard (ID: 13639) or create a new one with:
