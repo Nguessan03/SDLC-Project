@@ -1,0 +1,9 @@
+{
+    "name": "security-exporter",
+    "version": "1.0.0",
+    "description": "Security metrics exporter",
+    "main": "app.js",
+    "dependencies": {
+      "express": "^4.17.1"
+    }
+  }

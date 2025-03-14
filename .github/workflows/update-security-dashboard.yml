@@ -1,0 +1,38 @@
+name: Update Security Dashboard
+
+on:
+  workflow_run:
+    workflows: ["Security Checks"]
+    types:
+      - completed
+  schedule:
+    - cron: '0 0 * * *'  # Exécution quotidienne à minuit
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          
+      - name: Extract Security Data
+        id: extract
+        run: |
+          # Placeholder - in a real implementation, you'd parse reports
+          echo "::set-output name=high::$(( $RANDOM % 5 ))"
+          echo "::set-output name=medium::$(( $RANDOM % 10 ))"
+          echo "::set-output name=low::$(( $RANDOM % 15 ))"
+          
+      - name: Update Security Dashboard
+        run: |
+          # In a real implementation, you would use an API to update
+          # your dashboard data in Prometheus or another data store
+          echo "Updating dashboard with data:"
+          echo "High vulnerabilities: ${{ steps.extract.outputs.high }}"
+          echo "Medium vulnerabilities: ${{ steps.extract.outputs.medium }}"
+          echo "Low vulnerabilities: ${{ steps.extract.outputs.low }}"

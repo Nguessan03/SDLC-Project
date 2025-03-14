@@ -32,3 +32,36 @@ services:
       #volumes:
       #   - ./front-end/:/code/
       #   - /code/node_modules
+   
+   # Services de tableau de bord de sécurité
+   grafana:
+      image: grafana/grafana:latest
+      ports:
+         - "3000:3000"
+      volumes:
+         - grafana-storage:/var/lib/grafana
+      environment:
+         - GF_SECURITY_ADMIN_USER=admin
+         - GF_SECURITY_ADMIN_PASSWORD=securepassword
+      depends_on:
+         - prometheus
+      
+   prometheus:
+      image: prom/prometheus:latest
+      ports:
+         - "9090:9090"
+      volumes:
+         - ./prometheus:/etc/prometheus
+         - prometheus-data:/prometheus
+      command:
+         - '--config.file=/etc/prometheus/prometheus.yml'
+   
+   security-exporter:
+      build: ./security-exporter
+      ports:
+         - "8080:8080"
+
+# Volumes definition
+volumes:
+   grafana-storage:
+   prometheus-data:
